@@ -26,7 +26,7 @@ Plugin.create(:filter) do
   end
 
   settings "ミュート" do
-    settings "フィルタする「種類」\n※設定は再起動後に有効になります" do
+    settings "フィルタする「種類」\n※設定する前に受信したツイートに対しては動きません" do
       multi "クライアント", :filter_mute_kind_client
       multi "単語", :filter_mute_word
     end
