@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 Plugin.create(:filter) do
   filter_show_filter do |msgs|
-    mute_words = UserConfig[:filter_mute_kind_client].select{|m|!m.empty?}
+    mute_words = (UserConfig[:filter_mute_kind_client] || []).select{|m|!m.empty?}
     if mute_words
       msgs = msgs.select{ |m|
         not UserConfig[:filter_mute_kind_client].any?{ |word|
@@ -14,7 +14,7 @@ Plugin.create(:filter) do
   end
 
   filter_show_filter do |msgs|
-    mute_words = UserConfig[:filter_mute_word].select{|m|!m.empty?}
+    mute_words = (UserConfig[:filter_mute_word] || []).select{|m|!m.empty?}
     if mute_words
       msgs = msgs.select{ |m|
         not mute_words.any?{ |word|
