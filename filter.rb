@@ -17,7 +17,7 @@ Plugin.create(:filter) do
     mute_words = (UserConfig[:filter_mute_word] || []).select{|m|!m.empty?}
     if mute_words
       msgs = msgs.select{ |m|
-        not mute_words.any?{ |word|
+        not (UserConfig[:filter_mute_word] || []).any?{ |word|
           m.to_s.include?(word)
         }
       }
