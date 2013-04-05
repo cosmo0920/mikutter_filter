@@ -1,6 +1,19 @@
 #!/usr/bin/env ruby -Ku
 # -*- coding: utf-8 -*-
 Plugin.create(:filter) do
+  
+  command(:filter_mute_client_add,
+          name: "このクライアントをミュートする",
+          condition: Plugin::Command[:CanReplyAll],
+          visible: true,
+          role: :timeline ) do |m|
+    m.messages.map do |msg|
+      tmp=UserConfig[:filter_mute_kind_client].melt
+      tmp << msg[:source]
+      UserConfig[:filter_mute_kind_client]=tmp
+    end
+  end
+  
   filter_show_filter do |msgs|
     mute_words = (UserConfig[:filter_mute_kind_client] || []).select{|m|!m.empty?}
     if mute_words
@@ -10,7 +23,7 @@ Plugin.create(:filter) do
         }
       }
     end
-    [msgs]
+      [msgs]
   end
 
   filter_show_filter do |msgs|
