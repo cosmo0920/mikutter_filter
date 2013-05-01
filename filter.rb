@@ -22,6 +22,9 @@ Plugin.create(:filter) do
           not (UserConfig[:filter_mute_kind_client] || []).any?{ |word|
             word.to_s.include?(m.retweet_source[:source]) if m.retweet_source[:source] != nil
           }
+          not (UserConfig[:filter_mute_kind_client] || []).any?{ |word|
+            word.to_s.include?(m[:source]) if m[:source] != nil
+          }
         else
           not (UserConfig[:filter_mute_kind_client] || []).any?{ |word|
             word.to_s.include?(m[:source]) if m[:source] != nil
