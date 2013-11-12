@@ -20,14 +20,11 @@ Plugin.create(:filter) do
       msgs = msgs.select{ |m|
         if m.retweet?
           not (UserConfig[:filter_mute_kind_client] || []).any?{ |word|
-            word.to_s.include?(m.retweet_source[:source]) if m.retweet_source[:source] != nil
-          }
-          not (UserConfig[:filter_mute_kind_client] || []).any?{ |word|
-            word.to_s.include?(m[:source]) if m[:source] != nil
+            word.to_s == m.retweet_source[:source] if m.retweet_source[:source] != nil
           }
         else
           not (UserConfig[:filter_mute_kind_client] || []).any?{ |word|
-            word.to_s.include?(m[:source]) if m[:source] != nil
+            word.to_s == m[:source] if m[:source] != nil
           }
         end
       }
