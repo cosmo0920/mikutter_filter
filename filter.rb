@@ -44,10 +44,26 @@ Plugin.create(:filter) do
     [msgs]
   end
 
+  # mute url
+  filter_show_filter do |msgs|
+    mute_words = (UserConfig[:filter_mute_url] || []).reject{|m|m.empty?}
+    msgs = msgs.reject do |m|
+      if m.system? then
+        false
+      else
+        m[:entities][:urls].map{|u| u[:expanded_url]}.any? do |url|
+          mute_words.any?{|w| url.include?(w)}
+        end
+      end
+    end
+    [msgs]
+  end
+
   settings "ミュート" do
     settings "フィルタする「種類」\n※設定する前に受信したツイートに対しては動きません" do
       multi "クライアント", :filter_mute_kind_client
       multi "単語", :filter_mute_word
+      multi "URL", :filter_mute_url
     end
   end
 
