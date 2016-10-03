@@ -52,7 +52,7 @@ Plugin.create(:filter) do
         false
       else
         m[:entities][:urls].map{|u| u[:expanded_url]}.any? do |url|
-          mute_words.any?{|w| url.include?(w)}
+          mute_words.any?{|w| url && url.include?(w)}
         end
       end
     end
