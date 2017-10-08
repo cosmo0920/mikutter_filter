@@ -9,3 +9,5 @@ mikutterに
 mikutterのtrunkをお使いください。
 * 設定が反映されないんだけど
 設定する前に受信したツイートに対しては動きません
+* LICENSE
+[[Apache-2.0][LICENSE]]
